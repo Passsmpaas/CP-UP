@@ -718,13 +718,12 @@ async def txt_handler(bot: Client, m: Message):
                 url = f"https://anonymouspwplayer-b99f57957198.herokuapp.com/pw?url={url}?token={raw_text4}"
                 
             elif "https://appx-transcoded-videos.livelearn.in/videos/rozgar-data/" in url:
+    base_url = elif "https://appx-transcoded-videos.livelearn.in/videos/rozgar-data/" in url:
     base_url = "https://appx-transcoded-videos.livelearn.in/videos/rozgar-data/"
     
-    # Keep the full URL instead of removing the base completely
     path = url.replace(base_url, "")
     full_url = base_url + path
 
-    # Make the filename safe by removing forbidden characters
     name1 = (
         links[i][0]
         .replace("\t", "")
@@ -739,10 +738,8 @@ async def txt_handler(bot: Client, m: Message):
         .strip()
     )
 
-    # Limit filename length and add count prefix
     name = f'{str(count).zfill(3)}) {name1[:60]}'
 
-    # yt-dlp command with the full URL
     cmd = f'yt-dlp -o "{name}.mp4" "{full_url}"'
     
             elif "https://appx-transcoded-videos-mcdn.akamai.net.in/videos/bhainskipathshala-data/" in url:
