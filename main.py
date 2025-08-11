@@ -1130,3 +1130,74 @@ async def text_handler(bot: Client, m: Message):
 
                 elif any(ext in url for ext in [".mp3", ".wav", ".m4a"]):
                     try:
+                        ext = url.split('.')[-1]
+                        cmd = f'yt-dlp -x --audio-format {ext} -o "{name}.{ext}" "{url}"'
+                        download_cmd = f"{cmd} -R 25 --fragment-retries 25"
+                        os.system(download_cmd)
+                        await bot.send_document(chat_id=m.chat.id, document=f'{name}.{ext}', caption=cc1)
+                        os.remove(f'{name}.{ext}')
+                    except FloodWait as e:
+                        await m.reply_text(str(e))
+                        time.sleep(e.x)
+                        pass
+
+                elif any(ext in url for ext in [".jpg", ".jpeg", ".png"]):
+                    try:
+                        ext = url.split('.')[-1]
+                        cmd = f'yt-dlp -o "{name}.{ext}" "{url}"'
+                        download_cmd = f"{cmd} -R 25 --fragment-retries 25"
+                        os.system(download_cmd)
+                        copy = await bot.send_photo(chat_id=m.chat.id, photo=f'{name}.{ext}', caption=cc1)
+                        count += 1
+                        os.remove(f'{name}.{ext}')
+                    except FloodWait as e:
+                        await m.reply_text(str(e))
+                        time.sleep(e.x)
+                        pass
+                                
+                elif 'encrypted.m' in url:    
+                    Show = f"**『 WELCOME STRANGER 』🙋 ...⏳**\n" \
+                           f"🔗𝐋𝐢𝐧𝐤 » {url}\n" \
+                           f"🙆‍♂️ 𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲 🤷‍♂️ 『 WELCOME STRANGER 』🙋"
+                    prog = await m.reply_text(Show, disable_web_page_preview=True)
+                    res_file = await helper.download_and_decrypt_video(url, cmd, name, appxkey)  
+                    filename = res_file  
+                    await prog.delete(True)  
+                    await helper.send_vid(bot, m, cc, filename, thumb, name, prog, channel_id)
+                    await asyncio.sleep(1)  
+                    pass
+
+                elif 'drmcdni' in url or 'drm/wv' in url:
+                    Show = f"**『 WELCOME STRANGER 』🙋 ...⏳**\n" \
+                           f"🔗𝐋𝐢𝐧𝐤 » {url}\n" \
+                           f"🙆‍♂️ 𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲 🤷‍♂️ 『 WELCOME STRANGER 』🙋"
+                    prog = await m.reply_text(Show, disable_web_page_preview=True)
+                    res_file = await helper.decrypt_and_merge_video(mpd, keys_string, path, name, raw_text2)
+                    filename = res_file
+                    await prog.delete(True)
+                    await helper.send_vid(bot, m, cc, filename, thumb, name, prog, channel_id)
+                    await asyncio.sleep(1)
+                    pass
+     
+                else:
+                    Show = f"**『 WELCOME STRANGER 』🙋 ...⏳**\n" \
+                           f"🔗𝐋𝐢𝐧𝐤 » {url}\n" \
+                           f"🙆‍♂️ 𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲 🤷‍♂️ 『 WELCOME STRANGER 』🙋"
+                    prog = await m.reply_text(Show, disable_web_page_preview=True)
+                    res_file = await helper.download_video(url, cmd, name)
+                    filename = res_file
+                    await prog.delete(True)
+                    await helper.send_vid(bot, m, cc, filename, thumb, name, prog, channel_id)
+                    time.sleep(1)
+
+            except Exception as e:
+                    await m.reply_text(f"⚠️𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝐈𝐧𝐭𝐞𝐫𝐮𝐩𝐭𝐞𝐝\n\n🔗𝐋𝐢𝐧𝐤 » `{link}`\n\n__**⚠️Failed Reason »**__\n{str(e)}")
+                    pass
+
+    except Exception as e:
+        await m.reply_text(str(e))
+
+
+
+
+bot.run()
