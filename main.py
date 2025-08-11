@@ -720,26 +720,26 @@ async def txt_handler(bot: Client, m: Message):
             elif "https://appx-transcoded-videos.livelearn.in/videos/rozgar-data/" in url:
                 base_url = "https://appx-transcoded-videos.livelearn.in/videos/rozgar-data/"
     
-    path = url.replace(base_url, "")
-    full_url = base_url + path
+                path = url.replace(base_url, "")
+                full_url = base_url + path
 
-    name1 = (
-        links[i][0]
-        .replace("\t", "")
-        .replace(":", "")
-        .replace("/", "")
-        .replace("+", "")
-        .replace("#", "")
-        .replace("*", "")
-        .replace("|", "")
-        .replace('"', "")
-        .replace("'", "")
-        .strip()
-    )
+                name1 = (
+                links[i][0]
+                .replace("\t", "")
+                .replace(":", "")
+                .replace("/", "")
+                .replace("+", "")
+                .replace("#", "")
+                .replace("*", "")
+                .replace("|", "")
+                .replace('"', "")
+                .replace("'", "")
+                .strip()
+                )
 
-    name = f'{str(count).zfill(3)}) {name1[:60]}'
+                name = f'{str(count).zfill(3)}) {name1[:60]}'
 
-    cmd = f'yt-dlp -o "{name}.mp4" "{full_url}"'
+                cmd = f'yt-dlp -o "{name}.mp4" "{full_url}"'
     
             elif "https://appx-transcoded-videos-mcdn.akamai.net.in/videos/bhainskipathshala-data/" in url:
                 url = url.replace("https://appx-transcoded-videos-mcdn.akamai.net.in/videos/bhainskipathshala-data/", "")
