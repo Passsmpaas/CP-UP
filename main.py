@@ -801,7 +801,7 @@ async def txt_handler(bot: Client, m: Message):
                         for msg in failure_msgs:
                             await msg.delete()
                             
-else:
+                    else:
                         try:
                             cmd = f'yt-dlp -o "{name}.pdf" "{url}"'
                             download_cmd = f"{cmd} -R 25 --fragment-retries 25"
