@@ -717,7 +717,7 @@ async def txt_handler(bot: Client, m: Message):
             elif "d1d34p8vz63oiq" in url or "sec1.pw.live" in url:
                 url = f"https://anonymouspwplayer-b99f57957198.herokuapp.com/pw?url={url}?token={raw_text4}"
                 
-            elif "https://appx-transcoded-videos.livelearn.in/videos/rozgar-data/" in url:
+            elif "https://appx-transcoded-videos.kaxa.in/videos/rozgar-data/" in url:
                 base_url = "https://appx-transcoded-videos.livelearn.in/videos/rozgar-data/"
     
                 path = url.replace(base_url, "")
